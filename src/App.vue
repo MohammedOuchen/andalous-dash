@@ -1,30 +1,43 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+
+        <main class="page-wrapper">
+
+          <Navbar />
+          <div class="container mb-5 pb-3">
+              <div class="bg-light shadow-lg rounded-3 overflow-hidden">
+                <div class="row">
+                      <!-- Sidebar-->
+                  <Sidebar/>
+                         <!-- Content-->  
+                    <section class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                        <router-view/>
+                    </section>
+
+                
+                </div>
+              </div>
+          </div>
+        </main>
+
 </template>
 
+<script>
+
+import Sidebar from './components/Sidebar.vue'
+import Navbar from './components/Navbar.vue'
+
+export default {
+      
+      components: {
+        Sidebar,
+        Navbar
+      }
+
+
+
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
