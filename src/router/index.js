@@ -3,6 +3,8 @@ import store from '@/store'
 import Home from '../views/Home.vue'
 import Profile from '../views/Profile.vue'
 import Connecter from '../views/Connecter.vue'
+import Portefeuille from '../views/Portefeuille.vue'
+import listClient from '../views/listClient.vue'
 
 const routes = [
   {
@@ -27,6 +29,32 @@ const routes = [
     path: '/se-connecter',
     name: 'Connecter',
     component: Connecter
+  },
+  {
+    path: '/commerciales',
+    name: 'Portefeuille',
+    component: Portefeuille,
+    beforeEnter: (to, from, next) => {
+
+       if(!store.getters['auth/authenticated']){
+            return next({ name: 'Connecter' });
+        }
+        
+        next();
+    }
+  },
+  {
+    path: '/portefeuille-client/:id',
+    name: 'Portefeuille-client',
+    component: listClient,
+    beforeEnter: (to, from, next) => {
+
+       if(!store.getters['auth/authenticated']){
+            return next({ name: 'Connecter' });
+        }
+        
+        next();
+    }
   }
  
 ]

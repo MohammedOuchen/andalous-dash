@@ -10,13 +10,22 @@
                   <ul class="list-unstyled mb-0">
 
                       <li class="border-bottom mb-0">
-                        <router-link class="nav-link-style d-flex align-items-center px-4 py-3 active" :to="{name: 'Profile'}">
+                        <router-link class="nav-link-style d-flex align-items-center px-4 py-3" :to="{name: 'Profile'}">
                           <i class="fas fa-address-card opacity-60 me-2"></i>Informations de profil
                         </router-link>
                       </li>
 
-                      <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="dashboard-payouts.html"><i class="fas fa-sign-out-alt opacity-60 me-2"></i>
-                        Déconnexion</a>
+                      <li class="border-bottom mb-0">
+                        <router-link class="nav-link-style d-flex align-items-center px-4 py-3" :to="{name: 'Portefeuille'}">
+                          <i class="fas fa-address-card opacity-60 me-2"></i>Portefeuille client par commerciale
+                        </router-link>
+                      </li>
+                      
+                      <li class="border-bottom mb-0">
+                        <a class="nav-link-style d-flex align-items-center px-4 py-3" href="#" @click="logOut()">
+                          <i class="fas fa-sign-out-alt opacity-60 me-2"></i>
+                          Déconnexion
+                        </a>
                       </li>
                   </ul>
                   
@@ -26,7 +35,7 @@
 
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     
@@ -36,10 +45,28 @@ export default {
             'authenticated': 'auth/authenticated',
             'user': 'auth/user'
           })
+    },
+    methods: {
+           
+          ...mapActions({
+
+            'signOut' : 'auth/signOut'
+          }),
+
+          logOut(){
+
+              this.signOut().then(() => this.$router.replace({name: 'Connecter'}));
+          }
+
+
     }
     
 }
 </script>
-<style lang="">
-    
+<style scoped>
+      .router-link-active{
+          color:#78c981;
+          /* background-color:#78c981; */
+
+      }
 </style>

@@ -6,7 +6,7 @@
             <div class="" style="width: 6.375rem;"><img class="rounded-circle" src="/img/Logo/Andalous_logo.png" alt="Logo Andalous"></div>
 
             <div class="ps-3" v-if="authenticated">
-              <h3 class="text-light fs-lg mb-0">Super Admin</h3><span class="d-block text-light fs-ms opacity-60 py-1">Nom & Prénom</span>
+              <h3 class="text-light fs-lg mb-0">Super Admin</h3><span class="d-block text-light fs-ms opacity-60 py-1"> {{ user.name }} & {{ user.prenom }} </span>
             </div>
 
             <div class="ps-3" v-if="!authenticated">
@@ -15,11 +15,11 @@
               </router-link>
             </div>
 
-            <div class="position-right ps-3" v-if="authenticated">
+            <!-- <div class="position-right ps-3" v-if="authenticated">
               <a @click="logOut()" href="#">
                  <h3 class="position-right text-light fs-lg mb-0">Déconnexion</h3>
               </a>
-            </div>
+            </div> -->
 
             </div>
           </div>
@@ -38,13 +38,13 @@ export default {
           })
     },
     methods:{ 
-      ...mapActions({
-        'signOut': 'auth/signOut'
-      }),
-      logOut(){
-        
-        this.signOut().then(() => this.$router.replace({name: 'Home'}));
-      }
+            ...mapActions({
+              'signOut': 'auth/signOut'
+            }),
+            logOut(){
+              
+              this.signOut().then(() => this.$router.replace({name: 'Home'}));
+            }
     }
 }
 </script>
