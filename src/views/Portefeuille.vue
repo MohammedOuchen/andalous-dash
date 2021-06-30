@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="pt-2 px-4 ps-lg-0 pe-xl-5">
+    <div class="pt-2 px-4 ps-lg-0 pe-xl-5" v-if="commerciales.length">
                 <!-- Title-->
                 <div class="d-sm-flex flex-wrap justify-content-between align-items-center border-bottom" >
                 <h2 class="h3 py-2 me-2 text-center text-sm-start" >Portefeuille client par commerciale</h2>
@@ -7,12 +7,12 @@
            
                     <!--contenu-->
                     <!-- Card equipe commerciale: image + cordonnées -->
-                        <div class="card text-center" style="margin-top: 20px; border: 1px solid rgba(0,0,0,0.085);" v-for="commerciale in getCommerciales">
+                        <div class="card text-center" style="margin-top: 20px; border: 1px solid rgba(0,0,0,0.085);" v-for="commerciale in commerciales">
                             <div class="card-body">
                             <img class="d-inline-block rounded-circle mb-3" width="96" src="img/team/Toudo.jpg" alt="Toudo Cissoko"/>
                             <h6 class="pt-1 mb-1" style="color: #78c981;">
                                 <router-link :to="{name: 'Portefeuille-client', params : { id: commerciale.id } }" style="color: #78c981;">
-                                {{ commerciale.user.name.toUpperCase()+' '+commerciale.user.prenom.toUpperCase()}}
+                                {{ commerciale.user.name.toUpperCase()+' '+commerciale.user.prenom.toUpperCase() }}
                                 </router-link>
                             </h6>
                             <!-- <p class="fs-sm text-muted">Responsable Zone 2</p> -->
@@ -29,30 +29,41 @@
                             </div>
                         </div>
     </div>
+   <!-- Content-->
+            <div class="pt-2 px-4 ps-lg-0 pe-xl-5 m-1" style="text-align: center;" v-else>
+            <!-- Success spinner -->
+                        <div class="spinner-border text-success m-5" role="status" style="width: 10rem; height: 10rem;">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="chargement m-3" style="text-align: center; font-size: 10px;">
+                             <h5 class="text-success">En cours de chargement</h5>
+                        </div>
+            </div>
 </template>
 <script>
 
-import {mapActions , mapGetters} from 'vuex';
+import {mapActions} from 'vuex';
 
 export default {
 
-            computed: {
-
-                ...mapGetters({
-                        'getCommerciales': 'commerciale/getCommerciales'
-                    }),
+            data(){
+                return {
+                    commerciales : []
+                }
             },
             methods: {
 
                 ...mapActions({
-                    'getCommercialesDataRani' : 'commerciale/getCommercialesDataRani'
+                    'getCommercialesData' : 'commerciale/getCommercialesData'
                 })
-                },
+            },
                 
             mounted() {
 
-                        this.getCommercialesDataRani();
-                    },
+                        this.getCommercialesData()
+                        .then( res => this.commerciales = res.data)
+                        .catch(err => console.log(err));
+            },
     
 }
 </script>

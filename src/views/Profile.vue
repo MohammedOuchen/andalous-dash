@@ -67,19 +67,17 @@ export default {
               return { v$: useVuelidate() }
             },
           data(){
-            
             return {
                submitStatus: null
               }
           },
           computed: {     
-          
                   ...mapGetters({
                     'authenticated': 'auth/authenticated',
                     'user': 'auth/user'
                   }),
 
-                  },
+           },
           methods: {
                     ...mapActions({
 
@@ -105,7 +103,7 @@ export default {
                                  this.submitStatus = ''
                               },4000)
                                 }
-                  } 
+                } 
 
 
               },

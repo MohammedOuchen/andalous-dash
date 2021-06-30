@@ -84,10 +84,7 @@ export default{
                                         }
                                         
                                         const response = await axios.put('V1/utilisateur/'+credentiels.id, credentiels)
-
                                         commit('setUser', response.data)
-
-                                        credentiels
 
                             }catch(error){
                             

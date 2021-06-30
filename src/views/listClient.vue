@@ -1,75 +1,102 @@
 <template lang="">
+        <div v-if="commerciale || clients.length">
                     <!-- Title-->
-                    <div class="d-sm-flex flex-wrap justify-content-between align-items-center border-bottom" >
-                    <h2 class="h3 py-2 me-2 text-center text-sm-start" >Les clients affectées à  </h2>
-                    </div>
-                    <button class="btn" @click="update()">
-                            Notification <span class="badge badge-primary"></span>
+                    <div class="d-sm-flex flex-wrap justify-content-between align-items-center border-bottom" v-if="commerciale">
+                    <h2 class="h3 py-2 me-2 text-center text-sm-start" >Les clients affectées à {{ commerciale.user.name+' '+commerciale.user.prenom }} </h2>
+                    <!-- Secondary button -->
+                    <button @click="retour" type="button" class="btn btn-secondary btn-shadow">
+                        Retour
                     </button>
+                    </div>
                     <!--contenu-->
                         <!-- Tableau des commandes affectés -->
-                            <div class="table-responsive">
-                                <table class="table">
+                       
+                            <div class="table-responsive" v-if="clients.length">
+                                <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                    <th>#</th>
-                                    <th>Numéro de commande</th>
-                                    <th>Statut</th>
-                                    <th>Type</th>
-                                    <th>Nom de contact</th>
-                                    <th>Téléphone de contact</th>
-                                    <th>Date de création</th>
-                                    <th>Date de modification</th>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>E-mail</th>
+                                    <th>Téléphone</th>
+                                    <th>Entreprise</th>
+                                    <th>Siren</th>
+                                    <th>Nic</th>
+                                    <th>Naf</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                    <th scope="row">1</th>
-                                    <td>John</td>
-                                    <td>Doe</td>
-                                    <td>CEO, Founder</td>
-                                    <td>+3 555 68 70</td>
-                                    <td>John</td>
-                                    <td>Doe</td>
-                                    <td>CEO, Founder</td>
-                                    </tr>
+                                <tbody v-for=" client in clients ">
+                                        <tr> 
+                                            <th scope="row">
+                                                <router-link  :to="{name: 'commande-client', params : { id: client.id } }">
+                                                {{ client.id }}
+                                                </router-link>
+                                            </th>
+                                            <td>{{ client.user.name }}</td>
+                                            <td>{{ client.user.prenom }}</td>
+                                            <td>{{ client.user.email }}</td>
+                                            <td>{{ client.user.tel_portable }}</td>
+                                            <td>{{ client.nom_entreprise }}</td>
+                                            <td>{{ client.siren }}</td>
+                                            <td>{{ client.nic }}</td>
+                                            <td>{{ client.naf }}</td>
+                                            
+                                        </tr>
                                 </tbody>
                                 </table>
                             </div>
+                            <div class="text-center" v-else>
+                                 Pas encore des clients
+                            </div>
+        </div>
+        <!-- Content-->
+        <div class="pt-2 px-4 ps-lg-0 pe-xl-5 m-1" style="text-align: center;" v-else>
+            <!-- Success spinner -->
+                        <div class="spinner-border text-success m-5" role="status" style="width: 10rem; height: 10rem;">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="chargement m-3" style="text-align: center; font-size: 10px;">
+                             <h5 class="text-success">En cours de chargement</h5>
+                        </div>
+        </div>
 </template>
 <script>
 
-import { mapActions , mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
+
 
 export default {
             
-            // data(){
-            //    return {
-            //        client : this.getClients.commerciale.user
-            //    }
-            //  },
-            computed: {
+            data(){
+               return {
 
-                    ...mapGetters({
-                            'getClients': 'commerciale/getClients'
-                        }),
-            },
+                     commerciale : null,
+                     clients : []
+               }
+             },
             methods: {
 
                     ...mapActions({
                         'getCommercialesClient' : 'commerciale/getCommercialesClients'
                     }),
-                    update(){
 
-                        console.log(this.getClients)
-                   }
+                    retour(){
+                        this.$router.go(-1);
+                    }
             },
-            async  mounted() {
+            mounted() {
 
-                    this.getCommercialesClient(this.$route.params.id);
+                this.getCommercialesClient(this.$route.params.id)
+                .then(res => {
+                     this.commerciale = res.data.commerciale,
+                     this.clients = res.data.clients 
+                })
+                .catch(err => console.log(err));
+                 
             }
 }
 </script>
-<style lang="">
+<style >
     
 </style>

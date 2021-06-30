@@ -4,43 +4,61 @@ export default{
     namespaced: true,
 
     state: {
-          commerciales: [],
-          clients : []
+        //   commerciales: [],
+        //   clients : [],
+        //   commerciale: null
     },
     mutations: {
             
-        setCommerciale(state, data){
-            state.commerciales = data
-        },
+        // setCommerciales(state, data){
+        //     state.commerciales = data
+        // },
 
-        setClients(state, data){
-            state.clients = data;
-        }
+        // setClients(state, data){
+        //     state.clients = data;
+        // }, 
+        
+        // setCommerciale(state, data){
+        //     state.commerciale = data
+        // },
     },
     getters: {
 
-        getCommerciales(state){
+        // getCommerciales(state){
 
-            return state.commerciales;
-        },
+        //     return state.commerciales;
+        // },
 
-        getClients(state){
+        // getClients(state){
 
-            return state.clients;
-        }
-     
+        //     return state.clients;
+        // },
+        
+        // getCommerciale(state){
+
+        //     return state.commerciale;
+        // }
     },
     actions: {
                
-            async getCommercialesDataRani({ commit, state}) {
+            async getCommercialesData(_) {
                
                         try {
                            
+                              return  await axios.get('V1/commerciale')
+
+                        } catch (error) {
+                            
+                            console.log('Error')
+                        }
+            },
+
+            async getCommercialesClients(_, credentials){
+
+                        try {
                           
-                            const response  = await axios.get('V1/commerciale')
-                            // console.log(response.data)
-                            commit('setCommerciale', response.data)
-                           
+                            return  await axios.get('V1/commerciale/'+credentials);   
+
                         } catch (error) {
                             
                             console.log('Error')
@@ -48,21 +66,18 @@ export default{
 
             },
 
-            async getCommercialesClients({ commit,state }, credentials){
+            async getCommandesClient(_, credentials){
 
-                        try {
-                          
-                            const response  = await axios.get('V1/commerciale/'+credentials)
-                            // console.log(response.data)
-                            commit('setClients', response.data)
-                            console.log('after storing');
-                        
-                        } catch (error) {
-                            
-                            console.log('Error')
-                        }
+                try {
+                  
+                    return  await axios.get('V1/commande/'+credentials);   
 
-            }
+                } catch (error) {
+                    
+                    console.log('Error')
+                }
+
+    }
                 
     
     }
