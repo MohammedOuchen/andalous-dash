@@ -3,7 +3,12 @@
   
         <div class="col-md-4 m-auto">
             <div class="card-body">
+                <img src="img/admin.jpg" alt="illustration">
                 <h2 class="h4 m-4">Se connecter</h2>
+                       <div class="alert alert-warning" role="alert" v-if="submitStatus === 'PENDING'">
+                        <strong>Envoi en cours...</strong>
+                       </div>
+
                 <hr>
                 <form  class="needs-validation" @submit.prevent="submit()">
 
@@ -57,6 +62,7 @@ export default {
     data () {
         return {
             messageError: '',
+            submitStatus: '',
             user: {
                 email: '',
                 password: ''
@@ -73,9 +79,13 @@ export default {
                 if (this.v$.user.$invalid) {
                     return;
                 }
+                this.submitStatus = 'PENDING'
                 this.signIn(this.user)
                 .then(() => this.$router.replace({name: 'Profile'}))
-                .catch(() =>  this.messageError = 'le mail ou mot de passe est incorrect');
+                .catch(() =>  {
+                    this.messageError = 'le mail ou mot de passe est incorrect'
+                    this.submitStatus = ''
+                    });
 
         } 
         },

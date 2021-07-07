@@ -62,7 +62,7 @@ export default {
 
                         this.getCommercialesData()
                         .then( res => this.commerciales = res.data)
-                        .catch(err => console.log(err));
+                        .catch(err => this.$router.push('/'));
             },
     
 }

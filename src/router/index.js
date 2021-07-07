@@ -6,6 +6,10 @@ import Connecter from '../views/Connecter.vue'
 import Portefeuille from '../views/Portefeuille.vue'
 import listClient from '../views/listClient.vue'
 import CommandeClient from '../views/CommandeClient.vue'
+import Commande from '../views/Commande.vue'
+import PageNotFound from '../views/PageNotFound.vue'
+import ErrorPage from '../views/ErrorPage.vue'
+import UpdateCommande from '../views/UpdateCommande.vue'
 
 const routes = [
   {
@@ -69,8 +73,43 @@ const routes = [
         
         next();
     }
+  },
+  {
+    path: '/commande-details/:id',
+    name: 'commande-details',
+    component: Commande,
+    beforeEnter: (to, from, next) => {
+
+       if(!store.getters['auth/authenticated']){
+            return next({ name: 'Connecter' });
+        }
+        
+        next();
+    }
+  },{
+
+    path: '/:catchAll(.*)',
+    component: PageNotFound
+
+  },{
+
+    path: '/error',
+    component: ErrorPage
+
+  },
+  {
+    path: '/update-commande/:id',
+    name: 'update-commande',
+    component: UpdateCommande,
+    beforeEnter: (to, from, next) => {
+
+       if(!store.getters['auth/authenticated']){
+            return next({ name: 'Connecter' });
+        }
+        
+        next();
+    }
   }
- 
 ]
 
 const router = createRouter({

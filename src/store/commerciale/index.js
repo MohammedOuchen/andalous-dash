@@ -56,12 +56,12 @@ export default{
             async getCommercialesClients(_, credentials){
 
                         try {
-                          
+
+                  
                             return  await axios.get('V1/commerciale/'+credentials);   
 
                         } catch (error) {
-                            
-                            console.log('Error')
+         
                         }
 
             },
@@ -76,9 +76,19 @@ export default{
                     
                     console.log('Error')
                 }
-
-    }
-                
+            },  
     
+               async getCommande(_, credentials){
+
+                try {
+                  
+                    return  await axios.get('V1/status/'+credentials);   
+
+                } catch (error) {
+                    
+                    console.log('Error')
+                }
+   
     }
+}
 }

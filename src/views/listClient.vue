@@ -53,21 +53,24 @@
         <!-- Content-->
         <div class="pt-2 px-4 ps-lg-0 pe-xl-5 m-1" style="text-align: center;" v-else>
             <!-- Success spinner -->
-                        <div class="spinner-border text-success m-5" role="status" style="width: 10rem; height: 10rem;">
+                        <!-- <div class="spinner-border text-success m-5" role="status" style="width: 10rem; height: 10rem;">
                             <span class="visually-hidden">Loading...</span>
                         </div>
                         <div class="chargement m-3" style="text-align: center; font-size: 10px;">
                              <h5 class="text-success">En cours de chargement</h5>
-                        </div>
+                        </div> -->
+                        <ChargementPage></ChargementPage>
         </div>
 </template>
 <script>
 
 import { mapActions } from 'vuex';
-
+import ChargementPage from '../components/ChargementPage.vue';
 
 export default {
-            
+            components: {
+                ChargementPage,
+            },
             data(){
                return {
 
@@ -87,12 +90,19 @@ export default {
             },
             mounted() {
 
+                // console.log('ici')
                 this.getCommercialesClient(this.$route.params.id)
                 .then(res => {
-                     this.commerciale = res.data.commerciale,
-                     this.clients = res.data.clients 
+                //    setTimeout(() => {
+                        this.commerciale = res.data.commerciale,
+                            this.clients = res.data.clients 
+                //    }, 3000)
+                           
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+
+                       this.$router.push('/error');
+                });
                  
             }
 }

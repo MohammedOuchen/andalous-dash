@@ -21,6 +21,31 @@
                         </router-link>
                       </li>
                       
+                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-droits.html"><i class="fas fa-user-plus opacity-60 me-2"></i>
+                        Gestion des droits</a></li>
+                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-affectations.html"><i class="fas fa-map-marker-alt opacity-60 me-2"></i>
+                        Gestion des affectations</a></li>
+                        <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-produits.html"><i class="fas fa-truck-loading opacity-60 me-2"></i>
+                        Gestion des produits</a>
+                    </li>
+                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="demandes-de-devis.html"><i class="fas fa-file-invoice opacity-60 me-2"></i>
+                        Demande de devis</a></li>  
+                   <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="demandes-de-devis.html"><i class="fas fa-file-invoice opacity-60 me-2"></i>
+                      Commandes non affectées</a></li>
+
+                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="Commandes-affectées.html"><i class="fas fa-shopping-cart opacity-60 me-2"></i>
+                        Commandes affectées</a></li>
+                    <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="map-affectations.html"><i class="fas fa-map-marked-alt opacity-60 me-2"></i>Map affectation</a>
+                    </li>
+                    <hr>
+                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="portefeuille-client.html"><i class="fas fa-wallet opacity-60 me-2"></i>
+                        Portefeuille client par commerciale</a>
+                    </li>
+                    
+                    <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="statistiques.html"><i class="fas fa-signal opacity-60 me-2"></i>
+                        Statistiques</a></li>
+                    <hr>
+                   
                       <li class="border-bottom mb-0">
                         <a class="nav-link-style d-flex align-items-center px-4 py-3" href="#" @click="logOut()">
                           <i class="fas fa-sign-out-alt opacity-60 me-2"></i>

@@ -7,13 +7,13 @@
                       <h2 class="h3 py-2 me-2 text-center text-sm-start">Informations de profil</h2>
                       </div>
                       <div class="alert alert-success" role="alert" v-if="submitStatus === 'OK'">
-                        <strong>Thanks for your submission!</strong>
+                        <strong>Vos informations ont bien été mises à jour</strong>
                       </div>
                        <div class="alert alert-primary" role="alert" v-if="submitStatus === 'ERROR'">
                         <strong>Veuillez remplir le formulaire correctement.</strong>
                       </div>
                        <div class="alert alert-warning" role="alert" v-if="submitStatus === 'PENDING'">
-                        <strong>Sending...</strong>
+                        <strong>Envoi en cours...</strong>
                       </div>
                       <!--contenu-->
                       <label for="large-input" class="form-label">Nom*</label>
