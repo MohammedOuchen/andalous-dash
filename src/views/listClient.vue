@@ -93,10 +93,10 @@ export default {
                 // console.log('ici')
                 this.getCommercialesClient(this.$route.params.id)
                 .then(res => {
-                //    setTimeout(() => {
+                   setTimeout(() => {
                         this.commerciale = res.data.commerciale,
                             this.clients = res.data.clients 
-                //    }, 3000)
+                   }, 3000)
                            
                 })
                 .catch(err => {
