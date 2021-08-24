@@ -9,7 +9,7 @@ import CommandeClient from '../views/CommandeClient.vue'
 import Commande from '../views/Commande.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import ErrorPage from '../views/ErrorPage.vue'
-import UpdateCommande from '../views/UpdateCommande.vue'
+import UpdateCommande from '../views/Commande/UpdateCommande.vue'
 
 const routes = [
   {

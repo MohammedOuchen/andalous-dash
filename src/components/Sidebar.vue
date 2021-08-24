@@ -21,15 +21,27 @@
                         </router-link>
                       </li>
                       
-                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-droits.html"><i class="fas fa-user-plus opacity-60 me-2"></i>
-                        Gestion des droits</a></li>
-                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-affectations.html"><i class="fas fa-map-marker-alt opacity-60 me-2"></i>
-                        Gestion des affectations</a></li>
-                        <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-produits.html"><i class="fas fa-truck-loading opacity-60 me-2"></i>
-                        Gestion des produits</a>
+                    <li class="border-bottom mb-0" v-if="getRight">
+                      <a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-droits.html"><i class="fas fa-user-plus opacity-60 me-2"></i>
+                        Gestion des droits
+                      </a>
                     </li>
-                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="demandes-de-devis.html"><i class="fas fa-file-invoice opacity-60 me-2"></i>
-                        Demande de devis</a></li>  
+
+                    <li class="border-bottom mb-0">
+                         <a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-affectations.html"><i class="fas fa-map-marker-alt opacity-60 me-2"></i>
+                            Gestion des affectations
+                         </a>
+                    </li>
+                    <li class="border-bottom mb-0">
+                        <a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-produits.html"><i class="fas fa-truck-loading opacity-60 me-2"></i>
+                            Gestion des produits
+                        </a>
+                    </li>
+                    <li class="border-bottom mb-0">
+                      <a class="nav-link-style d-flex align-items-center px-4 py-3" href="demandes-de-devis.html"><i class="fas fa-file-invoice opacity-60 me-2"></i>
+                        Demande de devis
+                      </a>
+                    </li>  
                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="demandes-de-devis.html"><i class="fas fa-file-invoice opacity-60 me-2"></i>
                       Commandes non affectées</a></li>
 
@@ -68,7 +80,8 @@ export default {
           
           ...mapGetters({
             'authenticated': 'auth/authenticated',
-            'user': 'auth/user'
+            'user': 'auth/user',
+            'getRight': 'auth/getRight'
           })
     },
     methods: {

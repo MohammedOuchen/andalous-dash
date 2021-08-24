@@ -6,7 +6,8 @@ export default{
     state: {
 
         token: null,
-        user: null
+        user: null,
+        right : null
     },
     mutations: {
 
@@ -15,8 +16,10 @@ export default{
                 },
                 setUser(state, data){
                     state.user = data;
+                },
+                setRight(state, data){
+                    state.right = data;
                 }
-
     },
     getters: {
 
@@ -25,7 +28,12 @@ export default{
             return state.token && state.user;
         },
         user(state){
+
            return  state.user;
+        },
+        getRight(state){
+
+            return state.right;
         }
     },
     actions: {
@@ -55,9 +63,10 @@ export default{
                                                     
                                                     const response = await axios.get('V1/utilisateur-profil')
                             
-                                                    commit('setUser', response.data)
+                                                    commit('setUser', response.data.user)
+                                                    commit('setRight', response.data.right)
 
-                                                    console.log('success')
+                                                   
 
                                         }catch(error){
                                         

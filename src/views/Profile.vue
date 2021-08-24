@@ -104,8 +104,6 @@ export default {
                               },4000)
                                 }
                 } 
-
-
               },
           validations () {
 

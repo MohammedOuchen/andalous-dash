@@ -21,10 +21,11 @@
 
     <nav class="navbar navbar-light bg-light">
         <form class="justify-content-start">
-            <button class="btn btn-outline-success me-1" type="button">
+            <!-- <button class="btn btn-outline-success me-1" type="button">
                 <i class="ci-add me-1"></i>
                 Ajouter un produit
-            </button>
+            </button> -->
+            <AddProduct :idCommande="commande.id" :produitCommnde="produit"/>
             <button class="btn btn-outline-info me-1" type="button">
                 <i class="ci-arrow-down-circle me-1"></i>
                Plus d'informations
@@ -40,7 +41,7 @@
         </form>
    </nav>
 
-   <table class="table">
+   <table class="table" v-if="produits.length">
         <thead>
             <tr>
             <th scope="col">id</th>
@@ -56,7 +57,7 @@
             <td class="mb-0">
 
             <div class="mb-3">
-               <input class="form-control" type="number" id="number-input" v-model="produit.pivot.quantite">
+               <input class="form-control" type="number" id="number-input" v-model="produit.pivot.quantite" min="1">
             </div>
 
             </td>
@@ -73,18 +74,27 @@
             </tr>
         </tbody>
     </table>
+    <div v-else>
+        <ChargementPage/>
+    </div>
 
    
 </template>
 <script>
 import { mapActions } from 'vuex';
+import ChargementPage from '../../components/ChargementPage.vue';
+import AddProduct from '../Commande/AddProduct.vue';
 
 export default {
+            components :{
+                ChargementPage,
+                AddProduct
+            },
             data(){
                 return {
                     produits: [],
                     nbrPalette: 0,
-                    commande: null,
+                    commande: '',
                     submitStatus: '',
                     deleteProduct: ''
                 }

@@ -76,7 +76,6 @@ export default {
                 },
             mounted() {
                     
-                    console.log('ici')
                     this.getCommandesClient(this.$route.params.id)
                     .then(res => {
                         //   console.log(res.data)

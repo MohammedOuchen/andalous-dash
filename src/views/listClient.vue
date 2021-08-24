@@ -97,10 +97,8 @@ export default {
                         this.commerciale = res.data.commerciale,
                             this.clients = res.data.clients 
                    }, 3000)
-                           
                 })
                 .catch(err => {
-
                        this.$router.push('/error');
                 });
                  
