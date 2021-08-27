@@ -1,11 +1,6 @@
 <template lang="">
 
-              <!-- <div class="alert alert-success text-center" role="alert" v-if="submitStatus" >
-                        <strong>Enregistrer !</strong>
-               </div>
-              <div class="alert alert-warning text-center" role="alert" v-if="deleteProduct" >
-                        <strong>Supprimer !</strong>
-               </div> -->
+              <!-- notification pour l'enregistrement et la supression -->
                 <div class="alert alert-success text-center" role="alert" v-if="submitStatus === 'OK'">
                         <strong>Enregister</strong>
                 </div> 
@@ -18,14 +13,19 @@
                 <div class="alert alert-warning text-center" role="alert" v-if="submitStatus === 'PENDING'">
                         <strong>Envoi en cours...</strong>
                 </div>
+                
+                <!-- notification pour l'ajout  -->
+                <div class="alert alert-success text-center" role="alert" v-if="submitStatus === 'ADD'">
+                        <strong>le produit a été bien ajouté</strong>
+                </div> 
+
+
+
 
     <nav class="navbar navbar-light bg-light">
         <form class="justify-content-start">
-            <!-- <button class="btn btn-outline-success me-1" type="button">
-                <i class="ci-add me-1"></i>
-                Ajouter un produit
-            </button> -->
-            <AddProduct :idCommande="commande.id" :produitCommnde="produit"/>
+  
+            <AddProduct :idCommande="commande.id" :produitCommnde="produit"   @ajouter="addNewProduct($event)"/>
             <button class="btn btn-outline-info me-1" type="button">
                 <i class="ci-arrow-down-circle me-1"></i>
                Plus d'informations
@@ -105,64 +105,79 @@ export default {
             },
             methods: {
 
-                        ...mapActions({
-                            'getCommande' : 'commerciale/getCommande',
-                            'updateProductQuantite' : 'commande/updateProductQuantite',
-                            'deleteProductOrder' : 'commande/deleteProductOrder'
-                        }),
+                ...mapActions({
+                    'getCommande' : 'commerciale/getCommande',
+                    'updateProductQuantite' : 'commande/updateProductQuantite',
+                    'deleteProductOrder' : 'commande/deleteProductOrder'
+                }),
 
-                        retour(){
-                            this.$router.go(-1);
-                        },
+                retour(){
+                    this.$router.go(-1);
+                },
 
-                        async updateProduit($id, $qty){
-                           
-                            this.submitStatus = 'PENDING' 
-
-                            this.updateProductQuantite({ "idCommande" : this.commande.id, "idProduit" : $id, "quantiteProduit" : $qty })
-                            .then(() => {
-
-                                this.submitStatus = 'OK' 
-                            })
-                            .catch((err) => {
-                                
-                            });        
-
-                            setTimeout(() => {
-                                this.submitStatus = '' 
-                            },3000)
-                        },
-                        
-                        async deleteProduit($id){
-                            
-                                    this.submitStatus = 'PENDING' 
-                                    this.deleteProductOrder({ "idCommande" : this.commande.id, "idProduit" : $id })
-                                    .then(() => {
-                                        this.produits  = this.produits.filter( produit => {
-                                            return  produit.id != $id
-                                        })
-                                        this.submitStatus = 'DELETE'
-                                        })
-                                    .catch((err) => this.submitStatus = 'ERROR' )   
-                                    setTimeout(() => {
-                                    this.submitStatus = '' 
-                                    },3000)
-                        }
-                        
-               
-               },
-            mounted() {
+                async updateProduit($id, $qty){
                     
- 
-                    this.getCommande(this.$route.params.id)
-                    .then(res => {
-                        // console.log(res.data.produits)
-                        this.produits = res.data.produits;
-                        this.commande = res.data.commande;
+                    this.submitStatus = 'PENDING' 
+
+                    this.updateProductQuantite({ "idCommande" : this.commande.id, "idProduit" : $id, "quantiteProduit" : $qty })
+                    .then(() => {
+
+                        this.submitStatus = 'OK' 
                     })
-                    .catch(err => console.log(err));
+                    .catch((err) => {
+                        
+                    });        
+
+                    setTimeout(() => {
+                        this.submitStatus = '' 
+                    },3000)
+                },
                 
+                async deleteProduit($id){
+                    
+                            this.submitStatus = 'PENDING' 
+                            this.deleteProductOrder({ "idCommande" : this.commande.id, "idProduit" : $id })
+                            .then(() => {
+                                this.produits  = this.produits.filter( produit => {
+                                    return  produit.id != $id
+                                })
+                                this.submitStatus = 'DELETE'
+                                })
+                            .catch((err) => this.submitStatus = 'ERROR' )   
+                            setTimeout(() => {
+                            this.submitStatus = '' 
+                            },3000)
+                },
+
+                addNewProduct(id){
+
+                   this.submitStatus = 'PENDING'
+                    this.produits.push(id)   
+                    setTimeout(() => {
+                        this.submitStatus = 'ADD' 
+                    },10000)       
+                     
+                    setTimeout(() => {
+                       this.submitStatus = '' 
+                    },3000)
+                    
+        
                 }
+                
+        
+        },
+    mounted() {
+            
+
+            this.getCommande(this.$route.params.id)
+            .then(res => {
+                // console.log(res.data.produits)
+                this.produits = res.data.produits;
+                this.commande = res.data.commande;
+            })
+            .catch(err => console.log(err));
+        
+        }
 }
 </script>
 <style lang="">

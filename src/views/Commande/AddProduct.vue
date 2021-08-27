@@ -26,7 +26,6 @@
                     >
                    
                     <div class="mb-3" v-if="resultat.length && nomProduit">
-                          
                         <select  v-model="produit" class="form-select" id="multiselect-input" size="5" multiple>
                             <option v-for="produitSouhaite in resultat" @click="afficher" @keyup.enter="rechercher"  :value="produitSouhaite">
                               {{ produitSouhaite.nom }}
@@ -118,14 +117,24 @@ export default {
         },
         add(){  // ajouter le produit à la commande
 
-           console.log(this.produit)
-                // this.addNewProduct({ 
-                //                    "idCommande": this.idCommande,
-                //                    "idProduit": this.produit.id,
-                //                    "quantiteProduit": this.quantiteProduit
-                //                 })
-                // .then( response => console.log(response))
-                // .catch(err => console.log(err))
+                this.addNewProduct({ 
+                                   "idCommande": this.idCommande,
+                                   "idProduit": this.produit[0].id,
+                                   "quantiteProduit": this.quantiteProduit
+                                })
+                .then( response => {
+
+                    // this.produit[0].pivot.quantite = this.quantiteProduit;
+                    // console.log(this.produit[0].pivot.quantite)
+                    this.$emit('ajouter', {
+                                    "id": this.produit[0].id,
+                                    "nom": this.produit[0].nom,
+                                    "pivot": {
+                                        "quantite": this.quantiteProduit
+                                    }
+                                })
+                })
+                .catch(err => console.log(err))
         }
     },
     
