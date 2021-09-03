@@ -77,8 +77,7 @@ export default{
 
                 signOut({ commit }){
 
-                        return  axios.post('http://localhost:8000/api/V1/logout').then( () => {
-
+                    return  axios.post('http://localhost:8000/api/V1/logout').then( () => {
                         commit('setUser', null)
                         commit('setToken', null)
                     })

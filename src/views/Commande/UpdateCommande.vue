@@ -25,11 +25,16 @@
     <nav class="navbar navbar-light bg-light">
         <form class="justify-content-start">
   
-            <AddProduct :idCommande="commande.id" :produitCommnde="produit"   @ajouter="addNewProduct($event)"/>
-            <button class="btn btn-outline-info me-1" type="button">
+            <AddProduct 
+                    :idCommande="commandeCurrent.id" 
+                    :produitCommnde="produit"   
+                    @ajouter="addNewProduct($event)"/>
+
+            <button @click="displayMore" class="btn btn-outline-info me-1" type="button">
                 <i class="ci-arrow-down-circle me-1"></i>
                Plus d'informations
             </button>   
+
             <button class="btn btn-outline-danger me-1" type="button">
                 <i class="ci-close-circle me-1"></i>
                 Annuler la commande    
@@ -40,6 +45,29 @@
             </button> 
         </form>
    </nav>
+
+ 
+            <!-- Description list alignment -->
+            <dl class="row" v-if="statusMoreInformation">
+                    <dt class="col-sm-3">Description lists&nbsp;</dt>
+                    <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+                    <dt class="col-sm-3">Euismod</dt>
+                    <dd class="col-sm-9">
+                        <p class="mb-2">Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</p>
+                        <p class="mb-0">Donec id elit non mi porta gravida at eget metus.</p>
+                    </dd>
+                    <dt class="col-sm-3">Malesuada porta</dt>
+                    <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
+                    <dt class="col-sm-3 text-truncate">Long truncated term is truncated</dt>
+                    <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+                    <dt class="col-sm-3">Nesting</dt>
+                    <dd class="col-sm-9">
+                        <dl class="row">
+                        <dt class="col-sm-4">Nested definition list</dt>
+                        <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat nunc augue.</dd>
+                        </dl>
+                    </dd>
+            </dl>
 
    <table class="table" v-if="produits.length">
         <thead>
@@ -62,14 +90,18 @@
 
             </td>
             <td class="mb-0">
-                         <!-- Secondary solid icon button -->
-                <button type="button" class="btn btn-secondary btn-icon me-1 mb-0" @click="updateProduit(produit.id,produit.pivot.quantite )">
-                <i class="ci-edit"></i>
-                </button>
-                            <!-- Danger outline icon button -->
-                <button type="button" class="btn btn-outline-danger btn-icon" @click="deleteProduit(produit.id)">
-                <i class="ci-trash"></i>
-                </button>
+         
+                <div class="flex">
+                            <!-- Secondary solid icon button -->
+                    <button type="button" class="btn btn-secondary btn-icon me-1 mb-0" @click="updateProduit(produit.id,produit.pivot.quantite )">
+                    <i class="ci-edit"></i>
+                    </button>
+                                <!-- Danger outline icon button -->
+                    <button type="button" class="btn btn-danger btn-icon" @click="deleteProduit(produit.id)">
+                    <i class="ci-trash"></i>
+                    </button>
+                </div>
+
             </td>
             </tr>
         </tbody>
@@ -92,11 +124,13 @@ export default {
             },
             data(){
                 return {
+
                     produits: [],
                     nbrPalette: 0,
-                    commande: '',
+                    commandeCurrent: '',
                     submitStatus: '',
-                    deleteProduct: ''
+                    deleteProduct: '',
+                    statusMoreInformation: false
                 }
                 
             },
@@ -105,6 +139,11 @@ export default {
             },
             methods: {
 
+                displayMore(){
+                    
+                    this.statusMoreInformation = ! this.statusMoreInformation;
+                    console.log(this.commandeCurrent)
+                },
                 ...mapActions({
                     'getCommande' : 'commerciale/getCommande',
                     'updateProductQuantite' : 'commande/updateProductQuantite',
@@ -116,27 +155,26 @@ export default {
                 },
 
                 async updateProduit($id, $qty){
-                    
-                    this.submitStatus = 'PENDING' 
+                            
+                            this.submitStatus = 'PENDING' 
+                            this.updateProductQuantite({ "idCommande" : this.commandeCurrent.id, "idProduit" : $id, "quantiteProduit" : $qty })
+                            .then(() => {
+                                
+                                this.submitStatus = 'OK' 
+                            })
+                            .catch((err) => {
+                                
+                            });        
 
-                    this.updateProductQuantite({ "idCommande" : this.commande.id, "idProduit" : $id, "quantiteProduit" : $qty })
-                    .then(() => {
-
-                        this.submitStatus = 'OK' 
-                    })
-                    .catch((err) => {
-                        
-                    });        
-
-                    setTimeout(() => {
-                        this.submitStatus = '' 
-                    },3000)
+                            setTimeout(() => {
+                                this.submitStatus = '' 
+                            },3000)
                 },
                 
                 async deleteProduit($id){
                     
                             this.submitStatus = 'PENDING' 
-                            this.deleteProductOrder({ "idCommande" : this.commande.id, "idProduit" : $id })
+                            this.deleteProductOrder({ "idCommande" : this.commandeCurrent.id, "idProduit" : $id })
                             .then(() => {
                                 this.produits  = this.produits.filter( produit => {
                                     return  produit.id != $id
@@ -163,21 +201,23 @@ export default {
                     
         
                 }
+
                 
         
-        },
-    mounted() {
+            },
+
+           mounted() {
             
 
-            this.getCommande(this.$route.params.id)
-            .then(res => {
-                // console.log(res.data.produits)
-                this.produits = res.data.produits;
-                this.commande = res.data.commande;
-            })
-            .catch(err => console.log(err));
+                this.getCommande(this.$route.params.id)
+                .then(res => {
+                    // console.log(res.data.produits)
+                    this.produits = res.data.produits;
+                    this.commandeCurrent = res.data.commande;
+                })
+                .catch(err => console.log(err));
         
-        }
+            }
 }
 </script>
 <style lang="">

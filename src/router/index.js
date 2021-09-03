@@ -33,8 +33,17 @@ const routes = [
   {
     path: '/se-connecter',
     name: 'Connecter',
-    component: Connecter
-  },
+    component: Connecter,  
+    beforeEnter: (to, from, next) => {
+
+       if(store.getters['auth/authenticated']){
+            return next({ name: 'Profile' });
+        }
+          
+        next();
+
+    }
+   },
   {
     path: '/commerciales',
     name: 'Portefeuille',

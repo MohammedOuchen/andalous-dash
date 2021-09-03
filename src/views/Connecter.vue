@@ -12,13 +12,13 @@
                 <hr>
                 <form  class="needs-validation" @submit.prevent="submit()">
 
-                            <div class="alert alert-primary" role="alert" v-if="messageError">
-                                <strong>{{ messageError  }}</strong>
+                            <div class="alert alert-primary" role="alert"  v-if="submitStatus === 'ERROR'">
+                                <strong>le mail ou mot de passe est incorrect</strong>
                             </div>
                                  <!-- Email input -->
                             <div class="m-3" :class="{ error: v$.user.email.$errors.length }">
                                 <label for="email-input" class="form-label">Email</label>
-                                <input  v-model="user.email"  class="form-control" type="email" id="email-input">
+                                <input  v-model="user.email"  class="form-control" type="email" id="email-input" required>
 
                                 <div class="input-errors" v-for="error of v$.user.email.$errors" :key="error.$uid">
                                     <div class="error-msg">{{ error.$message }}</div>
@@ -35,6 +35,8 @@
                                     <div class="error-msg">{{ error.$message }}</div>
                                 </div>
                             </div>  
+
+
                                 <!-- Success button -->
                             <div class="m-3">
                                 <button type="submit" class="btn btn-success">Se Connecter</button>
@@ -61,7 +63,6 @@ export default {
 
     data () {
         return {
-            messageError: '',
             submitStatus: '',
             user: {
                 email: '',
@@ -77,26 +78,31 @@ export default {
 
                 this.v$.$touch()
                 if (this.v$.user.$invalid) {
+                    console.log('ici')
                     return;
                 }
                 this.submitStatus = 'PENDING'
+
                 this.signIn(this.user)
-                .then(() => this.$router.replace({name: 'Profile'}))
+                .then(() => {
+                    this.$router.replace({name: 'Profile'})
+                })
                 .catch(() =>  {
-                    this.messageError = 'le mail ou mot de passe est incorrect'
-                    this.submitStatus = ''
-                    });
+                    this.submitStatus = 'ERROR'
+                });
 
         } 
-        },
-    validations () {
+    },
+        validations () {
             return {
                     user: {
                         email: { 
-                            required:  helpers.withMessage('This field cannot be empty', required),
-                            email 
+                            required:  helpers.withMessage('Ce champ ne peut pas être vide', required),
+                            email: helpers.withMessage('Format incorrecte', email)
                         }, // Matches this.contact.email
-                        password: { required }, // Matches this.password
+                        password: { 
+                            required: helpers.withMessage('Ce champ ne peut pas être vide', required)
+                        }, // Matches this.password
                     }
             }
         }

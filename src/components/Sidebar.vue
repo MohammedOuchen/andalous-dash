@@ -58,12 +58,12 @@
                         Statistiques</a></li>
                     <hr>
                    
-                      <li class="border-bottom mb-0">
-                        <a class="nav-link-style d-flex align-items-center px-4 py-3" href="#" @click="logOut()">
-                          <i class="fas fa-sign-out-alt opacity-60 me-2"></i>
-                          Déconnexion
-                        </a>
-                      </li>
+                    <li class="border-bottom mb-0">
+                      <a class="nav-link-style d-flex align-items-center px-4 py-3" href="#" @click="logOut()">
+                        <i class="fas fa-sign-out-alt opacity-60 me-2"></i>
+                        Déconnexion
+                      </a>
+                    </li>
                   </ul>
                   
                 </div>
@@ -93,7 +93,13 @@ export default {
 
           logOut(){
 
-              this.signOut().then(() => this.$router.replace({name: 'Connecter'}));
+              this.signOut()
+              .then(() => {
+                    console.log(this.authenticated)
+                    this.$router.replace({name: 'Connecter'})
+              })
+              .catch(err => console.log(err));
+
           }
 
 
