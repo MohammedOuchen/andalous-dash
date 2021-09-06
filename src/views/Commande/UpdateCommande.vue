@@ -48,25 +48,16 @@
 
  
             <!-- Description list alignment -->
-            <dl class="row" v-if="statusMoreInformation">
-                    <dt class="col-sm-3">Description lists&nbsp;</dt>
-                    <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
-                    <dt class="col-sm-3">Euismod</dt>
-                    <dd class="col-sm-9">
-                        <p class="mb-2">Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</p>
-                        <p class="mb-0">Donec id elit non mi porta gravida at eget metus.</p>
-                    </dd>
-                    <dt class="col-sm-3">Malesuada porta</dt>
-                    <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
-                    <dt class="col-sm-3 text-truncate">Long truncated term is truncated</dt>
-                    <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
-                    <dt class="col-sm-3">Nesting</dt>
-                    <dd class="col-sm-9">
-                        <dl class="row">
-                        <dt class="col-sm-4">Nested definition list</dt>
-                        <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat nunc augue.</dd>
-                        </dl>
-                    </dd>
+            <dl class="row mt-3" v-if="statusMoreInformation" >
+                    <dt class="col-sm-3">Status&nbsp;</dt>
+                    <dd class="col-sm-9">{{ commandeCurrent.status }}</dd>
+                    <dt class="col-sm-3">Type&nbsp;</dt>
+                    <dd class="col-sm-9">{{ commandeCurrent.type }}</dd>
+                    <dt class="col-sm-3">Contact&nbsp;</dt>
+                    <dd class="col-sm-9">{{ commandeCurrent.contact }}</dd>
+                    <dt class="col-sm-3">Id commerciale&nbsp;</dt>
+                    <dd class="col-sm-9">{{ commandeCurrent.commercant_id }}</dd>
+            
             </dl>
 
    <table class="table" v-if="produits.length">
