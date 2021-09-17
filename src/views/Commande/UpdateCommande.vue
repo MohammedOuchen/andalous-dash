@@ -98,7 +98,7 @@
         </tbody>
     </table>
     <div v-else>
-        <ChargementPage/>
+        <ChargementPage />
     </div>
 
    
@@ -109,6 +109,7 @@ import ChargementPage from '../../components/ChargementPage.vue';
 import AddProduct from '../Commande/AddProduct.vue';
 
 export default {
+    
             components :{
                 ChargementPage,
                 AddProduct
