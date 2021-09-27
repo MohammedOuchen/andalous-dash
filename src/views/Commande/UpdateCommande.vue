@@ -181,17 +181,16 @@ export default {
 
                 addNewProduct(id){
 
-                   this.submitStatus = 'PENDING'
-                    this.produits.push(id)   
+                    this.produits.push(id)
+                    this.submitStatus = 'PENDING' 
                     setTimeout(() => {
-                        this.submitStatus = 'ADD' 
-                    },10000)       
-                     
+                            this.submitStatus = 'PENDING'  
+                    },5000)  
+                    this.submitStatus = 'ADD' 
                     setTimeout(() => {
-                       this.submitStatus = '' 
-                    },3000)
-                    
-        
+                            this.submitStatus = ''     
+                    },1000) 
+                               
                 }
 
                 
@@ -203,7 +202,6 @@ export default {
 
                 this.getCommande(this.$route.params.id)
                 .then(res => {
-                    // console.log(res.data.produits)
                     this.produits = res.data.produits;
                     this.commandeCurrent = res.data.commande;
                 })
