@@ -181,12 +181,9 @@ export default {
 
                 addNewProduct(id){
 
-                    this.produits.push(id)
                     this.submitStatus = 'PENDING' 
-                    setTimeout(() => {
-                            this.submitStatus = 'PENDING'  
-                    },5000)  
-                    this.submitStatus = 'ADD' 
+                    this.produits.push(id)
+                    this.submitStatus = 'ADD'  
                     setTimeout(() => {
                             this.submitStatus = ''     
                     },1000) 
