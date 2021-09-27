@@ -10,6 +10,8 @@ import Commande from '../views/Commande.vue'
 import PageNotFound from '../views/PageNotFound.vue'
 import ErrorPage from '../views/ErrorPage.vue'
 import UpdateCommande from '../views/Commande/UpdateCommande.vue'
+import HomeAffectation from '../views/Affectation/home.vue'
+import AffectationList from '../views/Affectation/AffectationList.vue'
 
 const routes = [
   {
@@ -95,12 +97,14 @@ const routes = [
         
         next();
     }
-  },{
+  },
+  {
 
     path: '/:catchAll(.*)',
     component: PageNotFound
 
-  },{
+  },
+  {
 
     path: '/error',
     component: ErrorPage
@@ -110,6 +114,32 @@ const routes = [
     path: '/update-commande/:id',
     name: 'update-commande',
     component: UpdateCommande,
+    beforeEnter: (to, from, next) => {
+
+       if(!store.getters['auth/authenticated']){
+            return next({ name: 'Connecter' });
+        }
+        
+        next();
+    }
+  },
+  {
+    path: '/affectation',
+    name: 'affectation',
+    component: HomeAffectation,
+    beforeEnter: (to, from, next) => {
+
+       if(!store.getters['auth/authenticated']){
+            return next({ name: 'Connecter' });
+        }
+        
+        next();
+    }
+  },
+  {
+    path: '/affectation-list/:id',
+    name: 'affectation-list',
+    component: AffectationList,
     beforeEnter: (to, from, next) => {
 
        if(!store.getters['auth/authenticated']){

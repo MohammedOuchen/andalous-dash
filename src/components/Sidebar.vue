@@ -21,17 +21,18 @@
                         </router-link>
                       </li>
                       
+                      <li class="border-bottom mb-0">
+                          <router-link class="nav-link-style d-flex align-items-center px-4 py-3" :to="{name: 'affectation'}">
+                              <i class="fas fa-address-card opacity-60 me-2"></i>Gestion des affectations
+                          </router-link>
+                      </li>
                     <!-- <li class="border-bottom mb-0" v-if="getRight">
                       <a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-droits.html"><i class="fas fa-user-plus opacity-60 me-2"></i>
                         Gestion des droits
                       </a>
                     </li>
 
-                    <li class="border-bottom mb-0">
-                         <a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-affectations.html"><i class="fas fa-map-marker-alt opacity-60 me-2"></i>
-                            Gestion des affectations
-                         </a>
-                    </li>
+                 
                     <li class="border-bottom mb-0">
                         <a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-produits.html"><i class="fas fa-truck-loading opacity-60 me-2"></i>
                             Gestion des produits
