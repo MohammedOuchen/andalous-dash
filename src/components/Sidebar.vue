@@ -21,7 +21,7 @@
                         </router-link>
                       </li>
                       
-                    <li class="border-bottom mb-0" v-if="getRight">
+                    <!-- <li class="border-bottom mb-0" v-if="getRight">
                       <a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-droits.html"><i class="fas fa-user-plus opacity-60 me-2"></i>
                         Gestion des droits
                       </a>
@@ -57,7 +57,7 @@
                     <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="statistiques.html"><i class="fas fa-signal opacity-60 me-2"></i>
                         Statistiques</a></li>
                     <hr>
-                   
+                    -->
                     <li class="border-bottom mb-0">
                       <a class="nav-link-style d-flex align-items-center px-4 py-3" href="#" @click="logOut()">
                         <i class="fas fa-sign-out-alt opacity-60 me-2"></i>
