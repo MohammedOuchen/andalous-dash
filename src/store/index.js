@@ -3,6 +3,7 @@ import auth from './auth/index'
 import commerciale from './commerciale/index'
 import commande from './commande/index'
 import produit from './produit/index'
+import affectation from './affectation/index'
 
 export default createStore({
   state: {
@@ -17,6 +18,7 @@ export default createStore({
     auth,
     commerciale,
     commande,
-    produit
+    produit,
+    affectation
   }
 })

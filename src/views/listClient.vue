@@ -99,6 +99,7 @@ export default {
                    }, 3000)
                 })
                 .catch(err => {
+                    
                        this.$router.push('/error');
                 });
                  
