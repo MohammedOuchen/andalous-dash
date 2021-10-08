@@ -12,6 +12,8 @@ import ErrorPage from '../views/ErrorPage.vue'
 import UpdateCommande from '../views/Commande/UpdateCommande.vue'
 import HomeAffectation from '../views/Affectation/home.vue'
 import AffectationList from '../views/Affectation/AffectationList.vue'
+import MyOrders from '../views/MyOrders.vue'
+
 
 const routes = [
   {
@@ -140,6 +142,19 @@ const routes = [
     path: '/affectation-list/:id',
     name: 'affectation-list',
     component: AffectationList,
+    beforeEnter: (to, from, next) => {
+
+       if(!store.getters['auth/authenticated']){
+            return next({ name: 'Connecter' });
+        }
+        
+        next();
+    }
+  },
+  {
+    path: '/mes-commandes',
+    name: 'mes-commandes',
+    component: MyOrders,
     beforeEnter: (to, from, next) => {
 
        if(!store.getters['auth/authenticated']){

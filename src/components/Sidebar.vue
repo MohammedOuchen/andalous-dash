@@ -26,6 +26,13 @@
                               <i class="fas fa-address-card opacity-60 me-2"></i>Gestion des affectations
                           </router-link>
                       </li>
+
+                      <li class="border-bottom mb-0">
+                          <router-link class="nav-link-style d-flex align-items-center px-4 py-3" :to="{name: 'mes-commandes'}">
+                              <i class="fas fa-address-card opacity-60 me-2"></i>Commandes affectées
+                          </router-link>
+                      </li>
+
                     <!-- <li class="border-bottom mb-0" v-if="getRight">
                       <a class="nav-link-style d-flex align-items-center px-4 py-3" href="gestion-des-droits.html"><i class="fas fa-user-plus opacity-60 me-2"></i>
                         Gestion des droits
@@ -46,8 +53,7 @@
                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="demandes-de-devis.html"><i class="fas fa-file-invoice opacity-60 me-2"></i>
                       Commandes non affectées</a></li>
 
-                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="Commandes-affectées.html"><i class="fas fa-shopping-cart opacity-60 me-2"></i>
-                        Commandes affectées</a></li>
+                   
                     <li class="mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3" href="map-affectations.html"><i class="fas fa-map-marked-alt opacity-60 me-2"></i>Map affectation</a>
                     </li>
                     <hr>

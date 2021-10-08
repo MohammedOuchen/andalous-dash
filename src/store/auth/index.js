@@ -7,7 +7,8 @@ export default{
 
         token: null,
         user: null,
-        right : null
+        right: null,
+        commerciale: null
     },
     mutations: {
 
@@ -19,6 +20,9 @@ export default{
                 },
                 setRight(state, data){
                     state.right = data;
+                },
+                setCommerciale(state, data){
+                    state.commerciale = data;
                 }
     },
     getters: {
@@ -34,7 +38,12 @@ export default{
         getRight(state){
 
             return state.right;
+        },
+        getCommerciale(state){
+             
+            return state.commerciale;
         }
+
     },
     actions: {
                 // Se connecter avec le serveur 
@@ -65,19 +74,21 @@ export default{
                             
                                                     commit('setUser', response.data.user)
                                                     commit('setRight', response.data.right)
+                                                    commit('setCommerciale', response.data.commerciale)
 
                                                    
 
                                         }catch(error){
                                         
-                                                commit('setUser', null)
-                                                commit('setToken', null)
+                                                    commit('setUser', null)
+                                                    commit('setToken', null)
                                         }
                 },
 
                 signOut({ commit }){
 
                     return  axios.post('http://localhost:8000/api/V1/logout').then( () => {
+
                         commit('setUser', null)
                         commit('setToken', null)
                     })
