@@ -73,7 +73,7 @@ export default {
             computed: {
           
                     ...mapGetters({
-                        
+
                         'user': 'auth/user',
                         'getCommerciale': 'auth/getCommerciale'
                     })
@@ -91,8 +91,6 @@ export default {
             },
             mounted() {
 
-        
-                console.log(this.getCommerciale.id)
                 this.getCommercialesClient(this.getCommerciale.id)
                 .then(res => {
 
